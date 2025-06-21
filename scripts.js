@@ -21,10 +21,118 @@ const aesthetics = [
 const playClass = "fa-solid fa-play fa-4x";
 const pauseClass = "fa-solid fa-pause fa-4x";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { 
+  const displayLightbox = () => {
+    lightbox.style.display = "block";
+    xBtn.addEventListener("click", hideLightbox);
+    console.log("lightbox displayed!");
+    saveTimeBtn.addEventListener("click", handleTimerChange);
+  }
+
+  const hideLightbox = () => {
+    xBtn.removeEventListener("click", hideLightbox);
+    lightbox.style.display = "none";
+  }
+
+  const handleTimerChange = () => {
+    pauseTimer();
+
+    let hrs = Number(hrsInput.value);
+    let mins = Number(minsInput.value);
+    let secs = Number(secsInput.value);
+
+    let minsIncorrect = Number(minsInput.value) >= 60;
+    let secsIncorrect = Number(secsInput.value) >= 60;
+
+    if (minsIncorrect || secsIncorrect) {
+      alert("Minutes/seconds must not be greater than 60.");
+      return -1;
+    }
+
+    localStorage.setItem("totalSecs", (hrs * 60 * 60) + (mins * 60) + (secs));
+    localStorage.setItem("secsLeft", (hrs * 60 * 60) + (mins * 60) + (secs));
+
+    hrsInput.value = "";
+    minsInput.value = "";
+    secsInput.value = "";
+    
+    updateDisplay();
+  }
+
+  const playTimer = () => {
+    timerRun = setInterval(updateTime, 1000);
+  }
+
+  const pauseTimer = () => {
+    clearInterval(timerRun);
+  }
+
+  const updateTime = () => {
+    let currentTime = localStorage.getItem("secsLeft");
+    currentTime--;
+    localStorage.setItem("secsLeft", currentTime);
+    console.log(currentTime + " current time (s)");
+    updateDisplay();
+  }
+
+  const updateDisplay = () => {
+    let currentTime = localStorage.getItem("secsLeft");
+    if (currentTime < (60 * 60)) {
+      hrsColon.textContent = "";
+    } else {
+      hrsColon.textContent = ":";
+    }
+
+    let hours = Math.floor(currentTime / 3600);
+    if (hours < 10 && hours != 0) {
+      hours = "0" + hours;
+    } else if (hours == 0) {
+      hours = "";
+    }
+    hrsDisplay.textContent = hours;
+
+    currentTime = currentTime - (Number(hours) * 3600);
+
+    let mins = Math.floor(currentTime / 60);
+    if (mins < 10) {
+      mins = "0" + mins;
+    }
+    minsDisplay.textContent = mins;
+
+    let secs = currentTime % 60;
+    if (secs < 10) {
+      secs = "0" + secs;
+    }
+    secsDisplay.textContent = secs;
+  }
+
+  const resetDisplay = () => {
+    pauseTimer();
+    let totalSeconds = localStorage.getItem("totalSecs");
+    localStorage.setItem("secsLeft", totalSeconds);
+    updateDisplay();
+  }
+
+  let timerRun;
+
+  if (!localStorage.getItem("totalSecs")) { // check for saved timer
+    localStorage.setItem("totalSecs", 5 * 60) // 5 minutes default
+  }
+
+  if (!localStorage.getItem("secsLeft")) { // check for running timer
+    localStorage.setItem("secsLeft", localStorage.getItem("totalSecs")); // set equal to above default timer
+  }
+
+  let hrsDisplay = document.querySelector(".hrs");
+  let minsDisplay = document.querySelector(".mins");
+  let secsDisplay = document.querySelector(".secs");
+
+  let hrsColon = document.querySelector("#c-hrs");
+
   let restartBtn = document.querySelector(".restart");
   let settingsBtn = document.querySelector(".settings");
   let playPauseBtn = document.querySelector(".play-pause");
+  let playPauseIcon = document.querySelector("#play-pause-icon");
 
   let lightbox = document.querySelector(".lightbox");
   let xBtn = document.querySelector(".x");
@@ -40,40 +148,19 @@ document.addEventListener("DOMContentLoaded", () => {
   donationLink.textContent = message;
   donationLink.href = placesToDonateTo[num][0];
 
-  const displayLightbox = () => {
-    lightbox.style.display = "block";
-    xBtn.addEventListener("click", hideLightbox);
-    console.log("lightbox displayed!");
-    saveTimeBtn.addEventListener("click", handleTimerChange);
-  }
-
-  const hideLightbox = () => {
-    xBtn.removeEventListener("click", hideLightbox);
-    lightbox.style.display = "none";
-  }
-
-  const handleTimerChange = () => {
-    let hrs = Number(hrsInput.value);
-    let mins = Number(minsInput.value);
-    let secs = Number(secsInput.value);
-
-    let minsIncorrect = Number(minsInput.value) >= 60;
-    let secsIncorrect = Number(secsInput.value) >= 60;
-
-    if (minsIncorrect || secsIncorrect) {
-      alert("Minutes/seconds must not be greater than 60.");
-      return -1;
-    }
-
-    localStorage.setItem("hours", hrs);
-    localStorage.setItem("minutes", mins);
-    localStorage.setItem("seconds", secs);
-
-    hrsInput.value = "";
-    minsInput.value = "";
-    secsInput.value = "";  
-  }
+  playPauseIcon.className = playClass;
+  updateDisplay();
 
   settingsBtn.addEventListener("click", displayLightbox);
+  playPauseBtn.addEventListener("click", () => {
+    if (playPauseIcon.className == playClass) {
+      playTimer();
+      playPauseIcon.className = pauseClass;
+    } else {
+      pauseTimer();
+      playPauseIcon.className = playClass;
+    }
+  });
+  restartBtn.addEventListener("click", resetDisplay);
 
 });
