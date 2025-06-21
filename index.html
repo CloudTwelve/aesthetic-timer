@@ -4,7 +4,28 @@
         <title>Aesthetic Timer</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="styles.css">
+        <script src="https://kit.fontawesome.com/dc2644d431.js" crossorigin="anonymous"></script>
         <script src="scripts.js"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"> 
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=LXGW+Marker+Gothic&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Savate:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
     </head>
     <!--
     Aesthetics List:
@@ -33,21 +54,64 @@
                     <div class="secs">
                         00
                     </div>
+                </div>
+                <div class="swap">
+                    <button class="restart">
+                        <i class="fa-solid fa-arrow-rotate-right fa-4x"></i>
+                    </button>
+                    <button class="settings">
+                        <i class="fa-solid fa-ellipsis fa-4x"></i>
+                    </button>
+                    <button class="play-pause">
+                        <i class="fa-solid fa-play fa-4x"></i>
+                    </button>
                 </div>    
             </div>
         </main>
-        <div class="swap">
-            <div class="right">
-                
+        <div class="lightbox">
+            <div class="x">
+                <i class="fa-solid fa-xmark fa-lg"></i>
             </div>
-            <div class="set-timer">
+            <div class="lb-top">
+                <h1 class="standard">
+                    Settings
+                </h1>
             </div>
-            <div class="left">
+            <div class="scrollable lb-bottom">
+                <h2 class="standard">
+                    Timer
+                </h2>
+                <div>
+                    <label class="standard" for="timer">Set timer:</label>
+                    <input type="text" id="hrs" name="hrs">
+                    <p class="standard">:</p>
+                    <input type="text" id="mins" name="mins">
+                    <p class="standard">:</p>
+                    <input type="text" id="secs" name="secs">
+                    <br>
+                    <button class="save-time">
+                    Save
+                    </button>
+                </div>
+                <h2 class="standard danger">
+                    Danger Zone
+                </h2>
+
             </div>
         </div>
         <footer>
-            <div class="donation">Like this? Support <a id="donation-link" target="_blank"></a></div>
-            <div class="when">2025</div>
+            <div class="button-cont">
+                <button class="left">
+                        <i class="fa-solid fa-caret-left fa-4x"></i>
+                </button>
+                <button class="right">
+                        <i class="fa-solid fa-caret-right fa-4x"></i>
+                </button>
+            </div>
+            <div class="donation-cont">
+                <div class="donation standard">Like this? Donate to <a id="donation-link" target="_blank"></a></div>
+                <div class="when standard">2025</div>
+            </div>
         </footer>
     </body>
 </html>
