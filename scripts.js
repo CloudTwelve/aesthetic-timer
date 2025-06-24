@@ -12,10 +12,10 @@ const placesToDonateTo = [
 const aesthetics = [
   ["General", "Caprasimo", "url('images/General.png')", "normal"],
   ["Dark", "Inter", "url('images/Dark.png')","900"],
-  ["Cottagecore", "Playfair Display", "url('images/Cottagecore.png')", "700"],
-  ["y2k", "LXGW Marker Gothic", "url('images/Y2K.png')", "600"],
-  ["Vintage", "Savate", "url('images/Vintage.png')"],
-  ["Soft Girl", "Caveat", "url('images/SoftGirl.png')"]
+  ["Cottagecore", "Playfair Display", "url('images/Cottagecore.png')", "800"],
+  ["y2k", "LXGW Marker Gothic", "url('images/Y2K.png')", "normal"],
+  ["Vintage", "Savate", "url('images/Vintage.png')", "normal"],
+  ["Soft Girl", "Libre Baskerville", "url('images/SoftGirl.png')", "normal"]
 ]
 
 const playClass = "fa-solid fa-play fa-4x";
@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     body.style.backgroundImage = aesthetics[currentTheme][2];
     for (let i = 0; i < timerNums.length; i++) {
       timerNums[i].style.fontFamily = aesthetics[currentTheme][1];
+      timerNums[i].style.fontWeight = aesthetics[currentTheme][3];
     }
     console.log("theme rendered!");
   }
@@ -169,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let lightbox = document.querySelector(".lightbox");
   let xBtn = document.querySelector(".x");
   let saveTimeBtn = document.querySelector(".save-time");
+  let sizeBtn = document.querySelector("#sizes");
 
   let hrsInput = document.querySelector("#hrs");
   let minsInput = document.querySelector("#mins");
@@ -201,4 +203,28 @@ document.addEventListener("DOMContentLoaded", () => {
   leftBtn.addEventListener("click", () => {
     changeTheme(false);
   });
+  sizeBtn.addEventListener("change", (event) => {
+    console.log("change in size!");
+    let size;
+    console.log(event.target.value);
+    switch (event.target.value) {
+      case "small":
+        size = "6rem";
+        break;
+      case "medium":
+        size = "8rem";
+        break;
+      case "large":
+        size = "10rem";
+        break;
+      case "huge":
+        size = "12rem";
+    }
+
+    console.log(size);
+
+    for (let i = 0; i < timerNums.length; i++) {
+      timerNums[i].style.fontSize = size;
+    }
+  })
 });

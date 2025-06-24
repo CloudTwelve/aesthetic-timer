@@ -39,9 +39,10 @@ button {
 }
 
 .swap * {
-    padding: 5px;
     margin: 0 10px;
-    border-radius: 50%;
+    padding: 5px;
+    width: 80px;
+    height: 80px;
 }
 
 .standard {
@@ -118,6 +119,21 @@ p {
 .button-cont button {
     display: inline;
     margin: 10px;
+}
+
+.button-cont *, .swap * {
+    background-color: transparent;
+    backdrop-filter: blur(60px);
+    -webkit-backdrop-filter: blur(60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.button-cont * {
+    width: 70px;
+    height: 70px;
 }
 
 footer {
