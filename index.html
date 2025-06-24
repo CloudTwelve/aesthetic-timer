@@ -26,6 +26,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     </head>
     <!--
     Aesthetics List:
@@ -89,14 +93,22 @@
                     <p class="standard">:</p>
                     <input type="text" id="secs" name="secs">
                     <br>
-                    <button class="save-time">
+                    <button class="set-btn save-time">
                     Save
                     </button>
+                    <br>
+                    <label for="sizes" class="standard">Timer Size:</label>
+                    <select id="sizes" name="sizes" class="set-btn standard">
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                        <option value="huge">Huge</option>
+                    </select>
                 </div>
                 <h2 class="standard danger">
                     Danger Zone
                 </h2>
-
+                <button class="set-btn danger-btn">Clear Site Data</button>
             </div>
         </div>
         <footer>

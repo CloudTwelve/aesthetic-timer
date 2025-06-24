@@ -10,18 +10,43 @@ const placesToDonateTo = [
 ];
 
 const aesthetics = [
-  ["Sleek", "Inter", ""],
-  ["Cottagecore", "Playfair Display", ""],
-  ["y2k", "LXGW Marker Gothic", ""],
-  ["Vintage", "Savate", ""],
-  ["Soft Girl", "Caveat", ""],
-  ["General", "Caprasimo", "images/General.png"]
+  ["General", "Caprasimo", "url('images/General.png')", "normal"],
+  ["Dark", "Inter", "url('images/Dark.png')","900"],
+  ["Cottagecore", "Playfair Display", "url('images/Cottagecore.png')", "700"],
+  ["y2k", "LXGW Marker Gothic", "url('images/Y2K.png')", "600"],
+  ["Vintage", "Savate", "url('images/Vintage.png')"],
+  ["Soft Girl", "Caveat", "url('images/SoftGirl.png')"]
 ]
 
 const playClass = "fa-solid fa-play fa-4x";
 const pauseClass = "fa-solid fa-pause fa-4x";
 
+let currentTheme;
+
+if (localStorage.getItem("currentTheme")) {
+  currentTheme = localStorage.getItem("currentTheme");
+} else {
+  currentTheme = 0;
+}
+
 document.addEventListener("DOMContentLoaded", () => { 
+  const renderTheme = () => {
+    body.style.backgroundImage = aesthetics[currentTheme][2];
+    for (let i = 0; i < timerNums.length; i++) {
+      timerNums[i].style.fontFamily = aesthetics[currentTheme][1];
+    }
+    console.log("theme rendered!");
+  }
+  const changeTheme = (increase) => {
+    increase ? currentTheme++ : currentTheme--;
+    if (currentTheme > aesthetics.length) {
+      currentTheme = 0;
+    } else if (currentTheme < 0) {
+      currentTheme = aesthetics.length - 1;
+    }
+    console.log("current theme: " + aesthetics[currentTheme][0])
+    renderTheme();
+  }
   const displayLightbox = () => {
     lightbox.style.display = "block";
     xBtn.addEventListener("click", hideLightbox);
@@ -123,6 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("secsLeft", localStorage.getItem("totalSecs")); // set equal to above default timer
   }
 
+  let body = document.querySelector("body");
+
+  let timerNums = document.querySelector(".timer").children;
+
   let hrsDisplay = document.querySelector(".hrs");
   let minsDisplay = document.querySelector(".mins");
   let secsDisplay = document.querySelector(".secs");
@@ -133,6 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let settingsBtn = document.querySelector(".settings");
   let playPauseBtn = document.querySelector(".play-pause");
   let playPauseIcon = document.querySelector("#play-pause-icon");
+
+  let rightBtn = document.querySelector(".right");
+  let leftBtn = document.querySelector(".left");
 
   let lightbox = document.querySelector(".lightbox");
   let xBtn = document.querySelector(".x");
@@ -150,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   playPauseIcon.className = playClass;
   updateDisplay();
+  renderTheme();
 
   settingsBtn.addEventListener("click", displayLightbox);
   playPauseBtn.addEventListener("click", () => {
@@ -162,5 +195,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   restartBtn.addEventListener("click", resetDisplay);
-
+  rightBtn.addEventListener("click", () => {
+    changeTheme(true);
+  });
+  leftBtn.addEventListener("click", () => {
+    changeTheme(false);
+  });
 });
