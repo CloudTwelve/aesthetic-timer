@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (currentTheme < 0) {
       currentTheme = aesthetics.length - 1;
     }
+    localStorage.setItem("currentTheme", currentTheme);
     console.log("current theme: " + aesthetics[currentTheme][0])
     renderTheme();
   }

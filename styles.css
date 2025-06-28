@@ -108,6 +108,11 @@ p {
     margin: 0 !important;
 }
 
+a {
+    font-weight: 800;
+    color: black;
+}
+
 .button-cont {
     display: flex;
     justify-content: space-between;
@@ -131,6 +136,42 @@ p {
 .button-cont * {
     width: 70px;
     height: 70px;
+}
+
+.page-btn {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    backdrop-filter: blur(60px);
+    -webkit-backdrop-filter: blur(60px);
+    width: 75px;
+    height: 75px;
+    border-radius: calc((75 / 2) * 1px);
+    transition: width 1s ease-in-out;
+}
+
+#hide {
+    max-width: 0%;
+    display: inline-block;
+    vertical-align: bottom;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 1s ease-in-out;
+    margin: 0;
+    font-size: 2rem;
+}
+
+.page-btn:hover #hide {
+    max-width: 100%;
+}
+
+.page-btn:hover {
+    width: 230px;
+    border-radius: calc((75 / 2) * 1px);
 }
 
 footer {
