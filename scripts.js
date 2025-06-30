@@ -16,21 +16,24 @@ const aesthetics = [
   ["y2k", "LXGW Marker Gothic", "url('images/Y2K.png')", "normal"],
   ["Vintage", "Savate", "url('images/Vintage.png')", "normal"],
   ["Soft Girl", "Libre Baskerville", "url('images/SoftGirl.png')", "normal"]
-]
+];
 
 const playClass = "fa-solid fa-play fa-4x";
 const pauseClass = "fa-solid fa-pause fa-4x";
 
 let currentTheme;
 
-if (localStorage.getItem("currentTheme")) {
-  currentTheme = localStorage.getItem("currentTheme");
-} else {
-  currentTheme = 0;
-}
-
 document.addEventListener("DOMContentLoaded", () => { 
   const renderTheme = () => {
+    if (localStorage.getItem("currentTheme")) {
+      currentTheme = localStorage.getItem("currentTheme");
+    } else {
+      currentTheme = 0;
+    }
+    if (currentTheme >= 6 || currentTheme < 0) {
+      currentTheme = 0;
+    }
+    console.log(aesthetics[currentTheme][0] + " is current theme");
     body.style.backgroundImage = aesthetics[currentTheme][2];
     for (let i = 0; i < timerNums.length; i++) {
       timerNums[i].style.fontFamily = aesthetics[currentTheme][1];
@@ -71,8 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let minsIncorrect = Number(minsInput.value) >= 60;
     let secsIncorrect = Number(secsInput.value) >= 60;
 
+    let hrsZero = Number(minsInput.value) == 0;
+    let minsZero = Number(minsInput.value) == 0;
+    let secsZero = Number(minsInput.value) == 0;
+
     if (minsIncorrect || secsIncorrect) {
       alert("Minutes/seconds must not be greater than 60.");
+      return -1;
+    } else if (hrsZero && minsZero && secsZero) {
+      alert("Hours, minutes, and seconds cannot all be zero.");
       return -1;
     }
 
@@ -103,6 +113,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const updateDisplay = () => {
+    if (!localStorage.getItem("totalSecs")) { // check for saved timer
+      localStorage.setItem("totalSecs", 5 * 60) // 5 minutes default
+    }
+
+    if (!localStorage.getItem("secsLeft")) { // check for running timer
+      localStorage.setItem("secsLeft", localStorage.getItem("totalSecs")); // set equal to above default timer
+    }
+
     let currentTime = localStorage.getItem("secsLeft");
     if (currentTime < (60 * 60)) {
       hrsColon.textContent = "";
@@ -142,14 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let timerRun;
 
-  if (!localStorage.getItem("totalSecs")) { // check for saved timer
-    localStorage.setItem("totalSecs", 5 * 60) // 5 minutes default
-  }
-
-  if (!localStorage.getItem("secsLeft")) { // check for running timer
-    localStorage.setItem("secsLeft", localStorage.getItem("totalSecs")); // set equal to above default timer
-  }
-
   let body = document.querySelector("body");
 
   let timerNums = document.querySelector(".timer").children;
@@ -172,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let xBtn = document.querySelector(".x");
   let saveTimeBtn = document.querySelector(".save-time");
   let sizeBtn = document.querySelector("#sizes");
+  let clearBtn = document.querySelector(".danger-btn");
 
   let hrsInput = document.querySelector("#hrs");
   let minsInput = document.querySelector("#mins");
@@ -227,5 +238,12 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < timerNums.length; i++) {
       timerNums[i].style.fontSize = size;
     }
-  })
+  });
+  clearBtn.addEventListener("click", () => {
+    console.log('Clear clicked');
+    pauseTimer();
+    localStorage.clear();
+    renderTheme();
+    updateDisplay();
+  });
 });
