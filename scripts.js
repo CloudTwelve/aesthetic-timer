@@ -4,8 +4,8 @@ const placesToDonateTo = [
   ["https://sapa-usa.org/", "Sudan"],
   ["https://www.launchgood.com/v4/campaign/empowering_rohingya_children_through_education?", "Rohingyan Children"],
   ["https://www.launchgood.com/v4/campaign/mercy_bakery_yemen_5?src=internal_comm_page_support", "Yemen"],
-  ["https://www.launchgood.com/v4/campaign/los_angeles_wildfires_emergency_2025?src=internal_comm_page", "Los Angeles Wildfire Relief"],
-  ["https://www.launchgood.com/v4/campaign/fuel_your_health_building_a_free_clinic_in_uganda?src=", "a Ugandan Clinic"],
+  ["https://www.launchgood.com/v4/campaign/feeding_the_fasting_one_mile_at_a_time?src=internal_search_discover_homeless", "NYC's Homeless"],
+  ["https://www.launchgood.com/v4/campaign/water_wells_for_uganda?src=internal_search_discover_uganda", "Wells in Uganda"],
   ["https://www.launchgood.com/v4/campaign/palestine_mothers_and_babies?src=internal_discover", "Palestinian Mothers and Babies"]
 ];
 
